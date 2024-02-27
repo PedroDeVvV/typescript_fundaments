@@ -64,6 +64,104 @@ function advancedGreeting(firstName: string, lastName?: string) {
   return console.log(`Olá, ${firstName} tudo bem ?`);
 }
 
-advancedGreeting("Pedro", "Henrique")
+advancedGreeting("Pedro", "Henrique");
 
 //union type
+function showBalance(balance: string | number) {
+  console.log(`O saldo da conta é R$${balance}`);
+}
+
+showBalance(100);
+showBalance("500");
+// showBalance(true) - erro
+
+const arr2: Array<number | string | boolean> = ["1", 1, false]; //Outra forma de definição
+
+function showUserRole(role: string | boolean) {
+  if (typeof role === "boolean") {
+    return "Usuário não aprovado";
+  }
+
+  return `A função do usuário é: ${role}`;
+}
+
+console.log(showUserRole("Admin"))
+console.log(showUserRole(false))
+
+//Type Alias - permite criar um tipo(não pode ser alterado ao longo do código)
+type Id = string | number;
+
+function showId(id: Id): void {
+  console.log(`O id é ${id}`)
+}
+
+showId(9)
+
+
+//interfaces - pode ser alterada ao longo do código
+interface Point {
+  x: number
+  y: number
+  z: number
+}
+
+function showCoords(obj: Point): void {
+  console.log(`X: ${obj.x} Y: ${obj.y} Z: ${obj.z}`)
+}
+
+const coordObj:Point = {
+  x: 10,
+  y: 15,
+  z: 20
+}
+
+showCoords(coordObj)
+
+
+//interface x type alias
+interface Person {
+  name: string
+}
+
+//alterando interface, não é possivel fazer isso com type alias
+interface Person {
+  age: number
+}
+
+const somePerson: Person = {name: 'Pedro', age: 19}
+
+console.log(somePerson)
+
+
+//literal type - trava um valor na variavel, util em funções
+
+let test: "testando"
+
+// test = 1 erro
+
+function showDirection(direction: "left" | "right" | "center"): void {
+  //essa função só pode receber um desses 3 valores
+  console.log(`A direção é ${direction}`)
+}
+
+showDirection("left")
+
+//Non-null Assertion Operator (!) - quando temos certeza de que esse valor não será nulo
+const p = document.getElementById("some-p")
+console.log(p!.innerText)
+
+//Bigint
+let n: bigint;
+n = 1000n
+console.log(n)
+console.log(typeof n)
+console.log(n + 100n)
+
+//symbol - identificadores únicos
+let symbolA:symbol = Symbol("A")
+let symbolB = Symbol("a")
+
+console.log(symbolA, symbolB)
+
+console.log(symbolA == symbolB)
+console.log(symbolA === symbolB)

@@ -73,45 +73,45 @@ console.log(modernGreeting("Pedro", "bom dia"));
 console.log(modernGreeting("Pedro"));
 
 //paramêtro default
-function somaDefault(n: number, m = 10) { // a tipagem já ocorre nesse estágio(inferencia)
+function somaDefault(n: number, m = 10) {
+  // a tipagem já ocorre nesse estágio(inferencia)
   return n + m;
 }
 
-console.log(somaDefault(10))
-console.log(somaDefault(10, 90))
+console.log(somaDefault(10));
+console.log(somaDefault(10, 90));
 
 //unknown - semelhante ao any mas não executa sem validação de tipo
 function doSomething(x: unknown) {
-    if(Array.isArray(x)) {
-        console.log(x[0])
-    } else if(typeof x === 'number') {
-        console.log(`X é um número ${x}`)
-    }
+  if (Array.isArray(x)) {
+    console.log(x[0]);
+  } else if (typeof x === "number") {
+    console.log(`X é um número ${x}`);
+  }
 }
 
-doSomething([209, 0, 87])
-doSomething(12)
+doSomething([209, 0, 87]);
+doSomething(12);
 
 //never - semelhante ao void, mas usado quando a função não retorna absolutamente nada, assim como tratamento de erros
 function showErrorMessage(msg: string): never {
-    throw new Error(msg)
+  throw new Error(msg);
 }
 
 // showErrorMessage("Erro")
 
-
 // rest operator
 function sumAll(...n: number[]) {
-    return n.reduce((number, sum) => sum + number)
+  return n.reduce((number, sum) => sum + number);
 }
 
-console.log(sumAll(1, 2,3,4,5,65,7,78,6.2345,324512))
+console.log(sumAll(1, 2, 3, 4, 5, 65, 7, 78, 6.2345, 324512));
 
 //desestructuring
-function showDetails({name, price}: {name:string, price:number}): string {
-    return `O nome do produto é ${name} e custa R$${price}` 
+function showDetails({ name, price }: { name: string; price: number }): string {
+  return `O nome do produto é ${name} e custa R$${price}`;
 }
 
-const shirt = {name: "Camise", price: 23.4}
+const shirt = { name: "Camisa", price: 23.4 };
 
-console.log(showDetails(shirt))
+console.log(showDetails(shirt));

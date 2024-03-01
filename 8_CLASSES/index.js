@@ -267,8 +267,138 @@ var PrivateClass = /** @class */ (function () {
     PrivateClass.prototype.showName = function () {
         return this.name;
     };
+    PrivateClass.prototype.privateMethod = function () {
+        console.log("Método Privado");
+    };
+    PrivateClass.prototype.showPrivateMethod = function () {
+        this.privateMethod();
+    };
     return PrivateClass;
 }());
 var pObj = new PrivateClass();
 // console.log(pObj.name) - erro
 console.log(pObj.showName()); // forma correta
+// pObj.privateMethod() maneira incorreta
+pObj.showPrivateMethod();
+var TestingPrivate = /** @class */ (function (_super) {
+    __extends(TestingPrivate, _super);
+    function TestingPrivate() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TestingPrivate.prototype.myMethod = function () {
+        // this.privateMethod impossivel acessar
+    };
+    return TestingPrivate;
+}(PrivateClass));
+//static members - podemos criar propriedades estaticos, o acesso njão dependerá de objetos
+var StaticMembers = /** @class */ (function () {
+    function StaticMembers() {
+    }
+    StaticMembers.staticMethod = function () {
+        console.log("Esse é um método estático");
+    };
+    StaticMembers.prop = "Teste Static";
+    return StaticMembers;
+}());
+// console.log(StaticMembers.prop); não da pra acessar se não estiver com a flag static
+console.log(StaticMembers.prop);
+StaticMembers.staticMethod();
+//dessa forma podemos acessar métodos de uma classe sem a necessidade de instanciar ela
+// ou seja, sem criar um novo objeto
+//generic class
+var Item = /** @class */ (function () {
+    function Item(first, second) {
+        this.first = first;
+        this.second = second;
+    }
+    Object.defineProperty(Item.prototype, "showFirst", {
+        get: function () {
+            return "O first \u00E9: ".concat(this.first);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Item;
+}());
+var newItem = new Item("caixa", "surpresa");
+console.log(newItem.showFirst);
+console.log(typeof newItem.showFirst);
+var secondItem = new Item(22, false);
+console.log(secondItem);
+//parameter properties
+var ParameterProperties = /** @class */ (function () {
+    function ParameterProperties(name, qty, price) {
+        this.name = name;
+        this.qty = qty;
+        this.price = price;
+        this.name = name;
+        this.qty = qty;
+        this.price = price;
+    }
+    Object.defineProperty(ParameterProperties.prototype, "showQty", {
+        get: function () {
+            return "Qtd total: ".concat(this.qty);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(ParameterProperties.prototype, "showPrice", {
+        get: function () {
+            return "Qtd total: ".concat(this.price);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return ParameterProperties;
+}());
+var newShirt = new ParameterProperties("Camisa", 5, 19.99);
+console.log(newShirt.name);
+console.log(newShirt.showPrice);
+console.log(newShirt.showQty);
+//class expressions - criar um classe anônima, iremos colocar a classe em uma varivel
+var myClass = /** @class */ (function () {
+    function class_1(name) {
+        this.name = name;
+    }
+    return class_1;
+}());
+var j1 = new myClass("Gustavo");
+var j2 = new myClass(2);
+console.log(j1.name);
+console.log(j2.name);
+//classe abstrata - serve de molde para outra classe,
+//todos os métodos dela devem ser implementados nas classes que á herdam
+var AbstractClass = /** @class */ (function () {
+    function AbstractClass() {
+    }
+    return AbstractClass;
+}());
+// const newObj = new AbstractClass() erro
+var AbstractExample = /** @class */ (function (_super) {
+    __extends(AbstractExample, _super);
+    function AbstractExample(name) {
+        var _this = _super.call(this) || this;
+        _this.name = name;
+        return _this;
+    }
+    AbstractExample.prototype.showName = function () {
+        console.log("O nome \u00E9 ".concat(this.name));
+    };
+    return AbstractExample;
+}(AbstractClass));
+var n1 = new AbstractExample("Jonas");
+n1.showName();
+//relação entre classes
+var Dog = /** @class */ (function () {
+    function Dog() {
+    }
+    return Dog;
+}());
+var Cat = /** @class */ (function () {
+    function Cat() {
+    }
+    return Cat;
+}());
+var doguinho = new Cat();
+doguinho.name = "Aries";
+console.log(doguinho);

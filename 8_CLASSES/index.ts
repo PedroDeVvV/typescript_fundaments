@@ -271,9 +271,141 @@ class PrivateClass {
   showName() {
     return this.name;
   }
+
+  private privateMethod() {
+    console.log("Método Privado");
+  }
+
+  public showPrivateMethod() {
+    this.privateMethod();
+  }
 }
 
 const pObj = new PrivateClass();
 
 // console.log(pObj.name) - erro
 console.log(pObj.showName()); // forma correta
+// pObj.privateMethod() maneira incorreta
+pObj.showPrivateMethod();
+
+class TestingPrivate extends PrivateClass {
+  myMethod() {
+    // this.privateMethod impossivel acessar
+  }
+}
+
+//static members - podemos criar propriedades estaticos, o acesso njão dependerá de objetos
+class StaticMembers {
+  static prop = "Teste Static";
+
+  static staticMethod() {
+    console.log("Esse é um método estático");
+  }
+}
+
+// console.log(StaticMembers.prop); não da pra acessar se não estiver com a flag static
+console.log(StaticMembers.prop);
+StaticMembers.staticMethod();
+
+//dessa forma podemos acessar métodos de uma classe sem a necessidade de instanciar ela
+// ou seja, sem criar um novo objeto
+
+//generic class
+class Item<T, U> {
+  first;
+  second;
+
+  constructor(first: T, second: U) {
+    this.first = first;
+    this.second = second;
+  }
+
+  get showFirst() {
+    return `O first é: ${this.first}`;
+  }
+}
+
+const newItem = new Item("caixa", "surpresa");
+console.log(newItem.showFirst);
+console.log(typeof newItem.showFirst);
+
+const secondItem = new Item(22, false);
+
+console.log(secondItem);
+
+//parameter properties
+class ParameterProperties {
+  constructor(public name: string, private qty: number, private price: number) {
+    this.name = name;
+    this.qty = qty;
+    this.price = price;
+  }
+
+  get showQty() {
+    return `Qtd total: ${this.qty}`;
+  }
+
+  get showPrice() {
+    return `Qtd total: ${this.price}`;
+  }
+}
+
+const newShirt = new ParameterProperties("Camisa", 5, 19.99);
+
+console.log(newShirt.name);
+console.log(newShirt.showPrice);
+console.log(newShirt.showQty);
+
+//class expressions - criar um classe anônima, iremos colocar a classe em uma varivel
+const myClass = class<T> {
+  name;
+
+  constructor(name: T) {
+    this.name = name;
+  }
+};
+
+const j1 = new myClass("Gustavo");
+const j2 = new myClass(2);
+
+console.log(j1.name);
+console.log(j2.name);
+
+//classe abstrata - serve de molde para outra classe,
+//todos os métodos dela devem ser implementados nas classes que á herdam
+
+abstract class AbstractClass {
+  abstract showName(): void;
+}
+
+// const newObj = new AbstractClass() erro
+
+class AbstractExample extends AbstractClass {
+  name: string;
+
+  constructor(name: string) {
+    super();
+    this.name = name;
+  }
+
+  showName(): void {
+    console.log(`O nome é ${this.name}`);
+  }
+}
+
+const n1 = new AbstractExample("Jonas");
+n1.showName();
+
+//relação entre classes
+class Dog {
+  name!: string;
+}
+
+class Cat {
+  name!: string;
+}
+
+const doguinho: Dog = new Cat();
+
+doguinho.name = "Aries";
+console.log(doguinho);

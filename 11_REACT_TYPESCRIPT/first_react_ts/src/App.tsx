@@ -1,4 +1,12 @@
 import "./App.css";
+//importando componentes
+import FirstComponent from "./components/ComponenteTeste/Componente";
+import SegundoComponente from "./components/SegundoComponente/SegundoComponente";
+import Livro, { Gender } from "./components/Livro/Livro";
+import State from "./components/State/State";
+
+// Type
+type textOrNull = string | null;
 
 function App() {
   //1-VARIAVEIS
@@ -9,8 +17,14 @@ function App() {
 
   //2- funções
   const userGreeting = (name: string): string => {
-    return `Olá, ${name}`
-  }
+    return `Olá, ${name}`;
+  };
+
+  //type
+  const myText: textOrNull = "Tem um texto aqui";
+  let mySecondText: textOrNull = null;
+
+  mySecondText = "Opa";
 
   return (
     <>
@@ -21,6 +35,16 @@ function App() {
       <p>Está trabalhando ? {!isWorking ? "Não" : "Sim"}</p>
       {!hadAPet ? "" : <p>{name} tem um animal de estimação</p>}
       <h3>{userGreeting(name)}</h3>
+      <FirstComponent name={"Pedro"} />
+      <SegundoComponente name="Virtus" />
+      <Livro
+        name="Star Wars"
+        gender={Gender.F}
+        creator="George Lucas"
+        pages={360}
+      />
+      <p>----------------------- useState ----------------</p>
+      <State />
     </>
   );
 }

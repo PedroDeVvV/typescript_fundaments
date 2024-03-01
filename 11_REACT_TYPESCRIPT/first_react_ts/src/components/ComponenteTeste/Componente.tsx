@@ -1,9 +1,14 @@
-type Props = {}
+interface Props {
+  name: string
+}
 
-const index = (props: Props) => {
+const Componente = (props: Props) => {
   return (
-    <div>index</div>
+    <div>
+      Primeiro componente
+      <p>O nome por props é: {props.name}</p>
+    </div>
   )
 }
 
-export default index
+export default Componente

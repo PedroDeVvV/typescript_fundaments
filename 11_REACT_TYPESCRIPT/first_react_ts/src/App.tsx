@@ -24,7 +24,7 @@ function App() {
   const myText: textOrNull = "Tem um texto aqui";
   let mySecondText: textOrNull = null;
 
-  mySecondText = "Opa";
+  mySecondText = "Bom dia, tudo bem ?";
 
   return (
     <>
@@ -45,6 +45,9 @@ function App() {
       />
       <p>----------------------- useState ----------------</p>
       <State />
+      {
+        mySecondText && <p> Tem um texto aqui: {mySecondText}</p>
+      }
     </>
   );
 }
